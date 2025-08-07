@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Calendar API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Task Manager</h1>
+        
+        <!-- Stats Dashboard -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tugas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayTasks">0</div>
+                <div class="stat-label">Hari Ini</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="highPriorityTasks">0</div>
+                <div class="stat-label">Prioritas Tinggi</div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <h2>📝 Tambah Tugas Baru</h2>
+            <div class="input-group">
+                <label for="taskInput">Deskripsi Tugas:</label>
+                <textarea id="taskInput" placeholder="Contoh: 'Rapat dengan tim marketing besok jam 2 siang tentang kampanye produk baru, prioritas tinggi'"></textarea>
+            </div>
+            
+            <!-- Voice Input Button -->
+            <div class="voice-controls">
+                <button id="voiceBtn" class="btn-voice" onclick="toggleVoiceInput()">🎤 Voice Input</button>
+                <span id="voiceStatus" class="voice-status"></span>
+            </div>
+            
+            <div class="date-time-group">
+                <div class="input-group">
+                    <label for="taskDate">Tanggal:</label>
+                    <input type="date" id="taskDate">
+                </div>
+                <div class="input-group">
+                    <label for="taskTime">Waktu:</label>
+                    <input type="time" id="taskTime">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="priority">Prioritas:</label>
+                <select id="priority">
+                    <option value="sedang">Sedang</option>
+                    <option value="tinggi">Tinggi</option>
+                    <option value="rendah">Rendah</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="processTask()">🚀 Proses dengan AI</button>
+            
+            <div id="aiResponse" class="ai-response">
+                <h3>🤖 Analisis AI:</h3>
+                <p id="aiAnalysis"></p>
+            </div>
+        </div>
+
+        <!-- Tasks Display -->
+        <div class="tasks-section">
+            <h2>📋 Daftar Tugas</h2>
+            <div class="filter-controls">
+                <select id="filterPriority" onchange="filterTasks()">
+                    <option value="all">Semua Prioritas</option>
+                    <option value="tinggi">Prioritas Tinggi</option>
+                    <option value="sedang">Prioritas Sedang</option>
+                    <option value="rendah">Prioritas Rendah</option>
+                </select>
+                <input type="text" id="searchTasks" placeholder="Cari tugas..." onkeyup="searchTasks()">
+            </div>
+            <div id="tasksList">
+                <p class="empty-state">Belum ada tugas. Tambahkan tugas pertama Anda!</p>
+            </div>
+        </div>
+
+        <!-- Google Calendar Integration -->
+        <div class="calendar-section">
+            <h2>📅 Integrasi Google Calendar</h2>
+            <div class="calendar-status" id="calendarStatus">
+                ⚠️ Belum terhubung ke Google Calendar
+            </div>
+            <button class="btn" id="authorizeBtn" onclick="handleAuthClick()">🔗 Hubungkan ke Google Calendar</button>
+            <button class="btn" id="signoutBtn" onclick="handleSignoutClick()" style="display:none;">🔓 Disconnect</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
